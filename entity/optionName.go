@@ -10,7 +10,9 @@ type optionName struct {
 	name string
 }
 
-func (x optionName) X() {}
+func (x optionName) Is(option lib.SpecParamOption) bool {
+	return false
+}
 
 func WithName(name string) lib.SpecParamOption {
 	return &optionName{

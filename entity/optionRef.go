@@ -10,7 +10,9 @@ type optionRef struct {
 	to lib.SpecParam
 }
 
-func (x optionRef) X() {}
+func (x optionRef) Is(option lib.SpecParamOption) bool {
+	return false
+}
 
 func WithRef(ref lib.SpecParam) lib.SpecParamOption {
 	return &optionRef{

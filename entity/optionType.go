@@ -16,7 +16,9 @@ type Type struct {
 	typeName string
 }
 
-func (r Type) X() {}
+func (r Type) Is(option lib.SpecParamOption) bool {
+	return false
+}
 
 func (r Type) Name() string {
 	return r.typeName

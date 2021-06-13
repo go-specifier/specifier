@@ -9,37 +9,41 @@ import (
 func GetSpecification() (*lib.Specification, error) {
 
 	// a creation of all dtos
-	role := &Role{}
-	var roleAttributes []lib.Entity
+	role := &Role{
+		Entity: &lib.SpecParamBase{},
+	}
 	if err := role.Number.Init(); err != nil {
 		return nil, err
 	}
-	roleAttributes = append(roleAttributes, &role.Number)
+	role.With(lib.WithAttribute(&role.Number))
 
 	if err := role.RootUserId.Init(); err != nil {
 		return nil, err
 	}
-	roleAttributes = append(roleAttributes, &role.RootUserId)
+	role.With(lib.WithAttribute(&role.RootUserId))
 
 	if err := role.Id.Init(); err != nil {
 		return nil, err
 	}
-	roleAttributes = append(roleAttributes, &role.Id)
+	role.With(lib.WithAttribute(&role.Id))
 
-	user := &User{}
-	var userAttributes []lib.Entity
+	user := &User{
+		Entity: &lib.SpecParamBase{},
+	}
 	if err := user.Name.Init(); err != nil {
 		return nil, err
 	}
-	userAttributes = append(userAttributes, &user.Name)
+	user.With(lib.WithAttribute(&user.Name))
+
 	if err := user.RoleId.Init(); err != nil {
 		return nil, err
 	}
-	userAttributes = append(userAttributes, &user.RoleId)
+	user.With(lib.WithAttribute(&user.RoleId))
+
 	if err := user.Id.Init(); err != nil {
 		return nil, err
 	}
-	userAttributes = append(userAttributes, &user.Id)
+	user.With(lib.WithAttribute(&user.Id))
 
 	// setup spec dtos
 	data := &lib.Specification{}

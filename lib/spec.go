@@ -3,7 +3,9 @@ package lib
 // specifier
 
 type Entity interface {
-	Option(interface{}) error
+	With(...SpecParamOption)
+	Option(SpecParamOption) (SpecParamOption, error)
+	Options([]interface{}) error
 }
 
 type Generator interface {
@@ -11,12 +13,16 @@ type Generator interface {
 }
 
 type SpecParamOption interface {
-	X()
+	Is(option SpecParamOption) bool
 }
 
 type SpecParam interface {
 	Init() error
 	With(...SpecParamOption)
+}
+
+type SpecEntity struct {
+	options []SpecParamOption
 }
 
 type SpecParamBase struct {
@@ -31,6 +37,15 @@ func (i *SpecParamBase) With(option ...SpecParamOption) {
 	i.options = append(i.options, option...)
 }
 
-func (i *SpecParamBase) Option(in interface{}) error {
+func (i *SpecParamBase) Option(in SpecParamOption) (SpecParamOption, error) {
+	for _, o := range i.options {
+		if o.Is(in) {
+			return o, nil
+		}
+	}
+	return nil, nil
+}
+
+func (i *SpecParamBase) Options(in []interface{}) error {
 	return nil
 }

@@ -10,6 +10,7 @@ func Generate(generator *lib.Specification) {
 	for _, e := range generator.Entities {
 		name := optionName{}
 		e.Option(&name)
+
 		fmt.Println("entity: ", name.name)
 		//for _, param := range dto.Params {
 		//	fmt.Println("--- " + param.Name)
