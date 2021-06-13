@@ -14,13 +14,7 @@ type User struct {
 }
 
 func (u User) Setup(r *Role) {
-	u.With(
-		entity.WithType("nic"),
-	)
-
-	u.Name.With(
-		entity.WithType("blaType"),
-	)
+	u.With(entity.WithName("ChangedUserName"))
 	u.RoleId.With(
 		entity.WithRef(&r.Id),
 	)

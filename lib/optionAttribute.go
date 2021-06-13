@@ -1,17 +1,35 @@
 package lib
 
-type AttributeOption struct {
-	param SpecParam
+import (
+	"fmt"
+)
+
+type OptionAttribute struct {
+	SpecParam
 }
 
-var _ SpecParamOption = (*AttributeOption)(nil)
+var _ SpecParamOption = (*OptionAttribute)(nil)
 
-func (a AttributeOption) Is(option SpecParamOption) bool {
-	return false
+func (a OptionAttribute) Is(_ SpecParamOption) {}
+
+func (x OptionAttribute) Multiple() bool {
+	return true
+}
+func (x OptionAttribute) String() string {
+	return fmt.Sprintf("attribute")
 }
 
-func WithAttribute(param SpecParam) *AttributeOption {
-	return &AttributeOption{
-		param: param,
+func WithAttribute(param SpecParam) *OptionAttribute {
+	return &OptionAttribute{
+		SpecParam: param,
 	}
+}
+
+func GetAttributes(options ...SpecParamOption) (result []*OptionAttribute) {
+	for _, o := range options {
+		if v, is := (o).(*OptionAttribute); is {
+			result = append(result, v)
+		}
+	}
+	return
 }

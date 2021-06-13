@@ -9,5 +9,6 @@ type Int struct {
 }
 
 func (i *Int) Init() error {
+	i.SpecParamBase.With(WithType("Int"))
 	return i.SpecParamBase.Init()
 }

@@ -7,5 +7,6 @@ type Ref struct {
 }
 
 func (i *Ref) Init() error {
+	i.SpecParamBase.With(WithType("Ref"))
 	return i.SpecParamBase.Init()
 }

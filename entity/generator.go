@@ -8,27 +8,21 @@ import (
 
 func Generate(generator *lib.Specification) {
 	for _, e := range generator.Entities {
-		name := optionName{}
-		e.Option(&name)
-
+		name, _ := GetOptionName(e.Options()...)
 		fmt.Println("entity: ", name.name)
-		//for _, param := range dto.Params {
-		//	fmt.Println("--- " + param.Name)
-		//	for _, option := range param.Options {
-		//		if ref, ok := option.(*Ref); ok {
-		//			fmt.Printf("------ ref to:  %s.%s\n", ref.GetRef().Dto.Name, ref.GetRef().Name)
-		//
-		//			for _, option := range ref.GetRef().Options {
-		//				if t, ok := option.(*Type); ok {
-		//					fmt.Println("--------- type:  " + t.Name())
-		//				}
-		//			}
-		//		}
-		//		if t, ok := option.(*Type); ok {
-		//			fmt.Println("------ type:  " + t.Name())
-		//		}
-		//	}
-		//}
+		for _, attr := range lib.GetAttributes(e.Options()...) {
+			attrName, _ := GetOptionName(attr.Options()...)
+			attrType, _ := GetOptionType(attr.Options()...)
+			attrRef, hasAttrRef := GetOptionRef(attr.Options()...)
+			fmt.Println("- attrName: ", attrName.name, attrType.Name())
+			for _, o := range attr.Options() {
+				fmt.Println("---- ", o.String())
+			}
+			if hasAttrRef {
+				refName, _ := GetOptionName(attrRef.to.Options()...)
+				fmt.Printf("- has ref to: %s\n", refName.name)
+			}
+		}
 	}
 
 }

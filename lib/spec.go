@@ -1,11 +1,14 @@
 package lib
 
+import (
+	"reflect"
+)
+
 // specifier
 
 type Entity interface {
 	With(...SpecParamOption)
-	Option(SpecParamOption) (SpecParamOption, error)
-	Options([]interface{}) error
+	Options() []SpecParamOption
 }
 
 type Generator interface {
@@ -13,12 +16,15 @@ type Generator interface {
 }
 
 type SpecParamOption interface {
-	Is(option SpecParamOption) bool
+	Is(option SpecParamOption)
+	Multiple() bool
+	String() string
 }
 
 type SpecParam interface {
 	Init() error
 	With(...SpecParamOption)
+	Options() []SpecParamOption
 }
 
 type SpecEntity struct {
@@ -33,19 +39,25 @@ func (i *SpecParamBase) Init() error {
 	return nil
 }
 
-func (i *SpecParamBase) With(option ...SpecParamOption) {
-	i.options = append(i.options, option...)
-}
-
-func (i *SpecParamBase) Option(in SpecParamOption) (SpecParamOption, error) {
-	for _, o := range i.options {
-		if o.Is(in) {
-			return o, nil
+func (i *SpecParamBase) With(options ...SpecParamOption) {
+	for _, o := range options {
+		if !o.Multiple() {
+			var exists bool
+			for index, savedO := range i.options {
+				if reflect.TypeOf(savedO) == reflect.TypeOf(o) {
+					exists = true
+					i.options[index] = o
+					break
+				}
+			}
+			if exists {
+				continue
+			}
 		}
+		i.options = append(i.options, o)
 	}
-	return nil, nil
 }
 
-func (i *SpecParamBase) Options(in []interface{}) error {
-	return nil
+func (i *SpecParamBase) Options() []SpecParamOption {
+	return i.options
 }

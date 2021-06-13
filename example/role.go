@@ -14,13 +14,6 @@ type Role struct {
 }
 
 func (r *Role) Setup(u *User) {
-	r.With(
-		entity.WithType("neco"),
-	)
-
-	r.Id.With(
-		entity.WithType("int"),
-	)
 	r.RootUserId.With(
 		entity.WithRef(&u.Id),
 	)

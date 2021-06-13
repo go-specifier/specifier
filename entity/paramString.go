@@ -9,5 +9,6 @@ type String struct {
 }
 
 func (i *String) Init() error {
+	i.SpecParamBase.With(WithType("String"))
 	return i.SpecParamBase.Init()
 }
