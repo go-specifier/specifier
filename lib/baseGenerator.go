@@ -1,9 +1,9 @@
 package lib
 
 type Specification struct {
-	Entities []Entity
+	Params []SpecParam
 }
 
-func (d *Specification) Add(entity Entity) {
-	d.Entities = append(d.Entities, entity)
+func (d *Specification) Add(params ...SpecParam) {
+	d.Params = append(d.Params, params...)
 }

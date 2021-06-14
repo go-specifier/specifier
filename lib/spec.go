@@ -5,12 +5,6 @@ import (
 )
 
 // specifier
-
-type Entity interface {
-	With(...SpecParamOption)
-	Options() []SpecParamOption
-}
-
 type Generator interface {
 	Generate()
 }
@@ -25,10 +19,6 @@ type SpecParam interface {
 	Init() error
 	With(...SpecParamOption)
 	Options() []SpecParamOption
-}
-
-type SpecEntity struct {
-	options []SpecParamOption
 }
 
 type SpecParamBase struct {

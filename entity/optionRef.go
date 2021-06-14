@@ -10,8 +10,8 @@ type optionRef struct {
 	to lib.SpecParam
 }
 
-func GetOptionRef(options ...lib.SpecParamOption) (optionRef, bool) {
-	for _, o := range options {
+func GetOptionRef(in lib.SpecParam) (optionRef, bool) {
+	for _, o := range in.Options() {
 		if v, is := (o).(*optionRef); is {
 			return *v, true
 		}

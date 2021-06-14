@@ -10,8 +10,8 @@ type OptionName struct {
 	name string
 }
 
-func GetOptionName(options ...lib.SpecParamOption) (OptionName, bool) {
-	for _, o := range options {
+func GetOptionName(in lib.SpecParam) (OptionName, bool) {
+	for _, o := range in.Options() {
 		if v, is := (o).(*OptionName); is {
 			return *v, true
 		}

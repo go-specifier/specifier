@@ -6,15 +6,16 @@ import (
 )
 
 type User struct {
-	lib.Entity
+	lib.SpecParam
 
 	Id     entity.Int
 	Name   entity.String
 	RoleId entity.Ref
 }
 
-func (u User) Setup(r *Role) {
+func (u *User) Setup(r *Role) {
 	u.With(entity.WithName("ChangedUserName"))
+
 	u.RoleId.With(
 		entity.WithRef(&r.Id),
 	)

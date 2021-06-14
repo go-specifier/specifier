@@ -10,8 +10,8 @@ func WithType(name string) *OptionType {
 	}
 }
 
-func GetOptionType(options ...lib.SpecParamOption) (OptionType, bool) {
-	for _, o := range options {
+func GetOptionType(in lib.SpecParam) (OptionType, bool) {
+	for _, o := range in.Options() {
 		if v, is := (o).(*OptionType); is {
 			return *v, true
 		}
