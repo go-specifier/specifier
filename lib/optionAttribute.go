@@ -25,8 +25,8 @@ func WithAttribute(param SpecParam) *OptionAttribute {
 	}
 }
 
-func GetAttributes(options ...SpecParamOption) (result []*OptionAttribute) {
-	for _, o := range options {
+func GetAttributes(in SpecParam) (result []*OptionAttribute) {
+	for _, o := range in.Options() {
 		if v, is := (o).(*OptionAttribute); is {
 			result = append(result, v)
 		}

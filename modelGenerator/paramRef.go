@@ -1,4 +1,4 @@
-package entity
+package modelGenerator
 
 import "github.com/go-specifier/specifier/lib"
 

@@ -1,14 +1,24 @@
 package main
 
 import (
-	"github.com/go-specifier/specifier/entity"
-	"github.com/go-specifier/specifier/example"
+	"fmt"
+
+	"github.com/go-specifier/specifier/modelGenerator"
+	"github.com/go-specifier/specifier/specification/zbilling/elastic"
+	"github.com/go-specifier/specifier/specification/zbilling/mariaDb"
 )
 
 func main() {
-	spec, err := example.GetSpecification()
-	if err != nil {
-		panic(err)
-	}
-	entity.Generate(spec)
+	elasticSpec := &elastic.Spec{}
+	elasticSpec.Setup()
+
+	mariaDbSpec := &mariaDb.Spec{}
+	mariaDbSpec.Setup(elasticSpec)
+
+	fmt.Println("MariaDb SPEC")
+	modelGenerator.Generate(mariaDbSpec)
+	fmt.Println("---------------------------------------")
+	fmt.Println("Elastic SPEC")
+	modelGenerator.Generate(elasticSpec)
+	fmt.Println("---------------------------------------")
 }

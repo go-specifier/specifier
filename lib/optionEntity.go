@@ -16,7 +16,7 @@ func (x OptionEntity) Multiple() bool {
 	return false
 }
 func (x OptionEntity) String() string {
-	return fmt.Sprintf("entity")
+	return fmt.Sprintf("modelGenerator")
 }
 
 func WithEntity(param SpecParam) *OptionEntity {
