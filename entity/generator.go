@@ -13,18 +13,17 @@ func Generate(generator *lib.Specification) {
 		for _, attr := range lib.GetAttributes(e.Options()...) {
 			attrName, _ := GetOptionName(attr)
 			attrType, _ := GetOptionType(attr)
-			//attrPackage := lib.GetPackage(attr)
+			attrPackage := lib.GetPackage(attr)
 			attrRef, hasAttrRef := GetOptionRef(attr)
-			fmt.Println("- attrName: ", attrName.name, attrType.Name())
+			fmt.Printf("- attrName: %s: %s in %s\n", attrName.name, attrType.Name(), attrPackage.Name())
 			for _, o := range attr.Options() {
 				fmt.Println("---- ", o.String())
 			}
 			if hasAttrRef {
 				refName, _ := GetOptionName(attrRef.to)
 				refParent, _ := GetOptionName(lib.GetEntity(attrRef.to))
-				fmt.Printf("- has ref to: %s.%s\n", refParent.name, refName.name)
+				fmt.Printf("----  - has ref to: %s.%s\n", refParent.name, refName.name)
 			}
 		}
 	}
-
 }

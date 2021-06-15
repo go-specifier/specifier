@@ -1,20 +1,11 @@
 package lib
 
-import (
-	"fmt"
-)
-
-type OptionPackage string
+type OptionPackage = optionString
 
 var _ SpecParamOption = (*OptionPackage)(nil)
 
-func (a OptionPackage) Is(_ SpecParamOption) {}
-
-func (x OptionPackage) Multiple() bool {
-	return false
-}
-func (x OptionPackage) String() string {
-	return fmt.Sprintf("package: %s", string(x))
+func (x OptionPackage) Name() string {
+	return x.String()
 }
 
 func WithPackage(name string) *OptionPackage {
